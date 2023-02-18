@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "906303282594",
+    "project_id": "flutter-timeout-app",
+    "storage_bucket": "flutter-timeout-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906303282594:android:c50b03560781007d16a6fb",
+        "android_client_info": {
+          "package_name": "com.example.travell_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906303282594-disbf6ddd8ifrmsriti64d3b6sgclhvi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAC_PH5UfAeo303-sXvYmqwLPN_iYz63Fk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906303282594-disbf6ddd8ifrmsriti64d3b6sgclhvi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
