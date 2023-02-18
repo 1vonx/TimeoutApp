@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travell_app/cubit/app_cubits.dart';
+import 'package:travell_app/cubit/place_cubit.dart';
 import 'package:travell_app/misc/colors.dart';
 import 'package:travell_app/widgets/text/app_large_text.dart';
 import 'package:travell_app/widgets/factory/button_widget_factory.dart';
@@ -89,7 +89,7 @@ class _WelcomePageState extends State<WelcomePage> {
                             children: [
                               Container(
                                 child: _factory?.createButton(() {
-                                  BlocProvider.of<AppCubits>(context).login();
+                                  BlocProvider.of<PlaceCubit>(context).getData();
                                 }, ""),
                               ),
                             ],

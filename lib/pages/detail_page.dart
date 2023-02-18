@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travell_app/cubit/app_cubit_states.dart';
-import 'package:travell_app/cubit/app_cubits.dart';
+import 'package:travell_app/cubit/place_cubit_states.dart';
+import 'package:travell_app/cubit/place_cubit.dart';
 import 'package:travell_app/misc/colors.dart';
-import 'package:travell_app/service/data_services.dart';
 import 'package:travell_app/widgets/buttons/app_buttons.dart';
 import 'package:travell_app/widgets/text/app_large_text.dart';
 
@@ -22,7 +21,7 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AppCubits, CubitState>(builder: (context, state) {
+    return BlocBuilder<PlaceCubit, PlaceState>(builder: (context, state) {
       DetailState detail = state as DetailState;
       return Scaffold(
         body: Container(
@@ -49,7 +48,7 @@ class _DetailPageState extends State<DetailPage> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          BlocProvider.of<AppCubits>(context).goHome();
+                          BlocProvider.of<PlaceCubit>(context).goHome();
                         },
                         icon: const Icon(
                           Icons.arrow_back,

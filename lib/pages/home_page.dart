@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:travell_app/cubit/app_cubit_states.dart';
-import 'package:travell_app/cubit/app_cubits.dart';
+import 'package:travell_app/cubit/place_cubit_states.dart';
+import 'package:travell_app/cubit/place_cubit.dart';
 import 'package:travell_app/misc/colors.dart';
 import 'package:travell_app/widgets/text/app_large_text.dart';
 
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: BlocBuilder<AppCubits, CubitState>(
+    return Scaffold(body: BlocBuilder<PlaceCubit, PlaceState>(
       builder: (context, state) {
         if (state is LoadedState) {
           var info = state.places;
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       itemBuilder: (BuildContext context, int index) {
                         return GestureDetector(
                           onTap: () {
-                            BlocProvider.of<AppCubits>(context)
+                            BlocProvider.of<PlaceCubit>(context)
                                 .detailPage(info[index]);
                           },
                           child: Container(

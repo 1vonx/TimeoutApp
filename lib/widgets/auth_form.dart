@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:travell_app/misc/colors.dart';
 import 'package:travell_app/widgets/user_image_picker.dart';
 
-import '../cubit/app_cubits.dart';
+import '../cubit/place_cubit.dart';
 
 class AuthForm extends StatefulWidget {
   final void Function(String email, String password, String username,
@@ -54,7 +54,7 @@ class _AuthFormState extends State<AuthForm> {
           context, _isLogin,
           _userImageFile);
 
-      BlocProvider.of<AppCubits>(context).getData();
+      BlocProvider.of<PlaceCubit>(context).getData();
     }
   }
 
