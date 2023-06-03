@@ -10,8 +10,8 @@ class iOSButtonFactory implements ButtonWidgetFactory{
   @override
   Widget createButton(VoidCallback onPressed,String label) {
     return CupertinoButton(
-        child: Text(label),
-        onPressed: onPressed);
+        onPressed: onPressed,
+        child: Text(label));
   }
 }
 

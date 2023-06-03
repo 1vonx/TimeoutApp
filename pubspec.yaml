@@ -43,6 +43,10 @@ dependencies:
   http: ^0.13.5
   get_it:
   image_picker:
+  sensors_plus: ^3.0.2
+  compass_icon: ^1.0.4
+  smooth_compass: ^2.0.17
+  typicons_flutter: ^0.5.0
 
 dev_dependencies:
   flutter_test:

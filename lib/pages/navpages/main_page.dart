@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travell_app/pages/navpages/my_page.dart';
 import 'package:travell_app/pages/navpages/search_page.dart';
-
 import '../home_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -13,8 +12,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   List pages = [
-    HomePage(),
-    SearchPage(),
+    const HomePage(),
+    const SearchPage(),
     MyPage()
   ];
 
@@ -42,7 +41,7 @@ class _MainPageState extends State<MainPage> {
         showUnselectedLabels: false,
         showSelectedLabels: false,
         elevation: 0,
-        items:[
+        items: const [
           BottomNavigationBarItem(label:"Home",icon: Icon(Icons.apps)),
           BottomNavigationBarItem(label:"Search",icon: Icon(Icons.search)),
           BottomNavigationBarItem(label:"My",icon: Icon(Icons.person)),

@@ -1,11 +1,14 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:async';
+import 'dart:math';
+import 'package:compass_icon/compass_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sensors_plus/sensors_plus.dart';
 import 'package:travell_app/cubit/place_cubit_states.dart';
 import 'package:travell_app/cubit/place_cubit.dart';
 import 'package:travell_app/misc/colors.dart';
 import 'package:travell_app/widgets/text/app_large_text.dart';
-
+import 'package:typicons_flutter/typicons_flutter.dart';
 import '../widgets/text/app_text.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,9 +25,65 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     "camping_icon.png": "Camping",
     "swimming_icon.png": "Swimming"
   };
+  List<double>? _magnetometerValues;
+  CompassDirection compassDirection = CompassDirection.north;
+  final _streamSubscriptions = <StreamSubscription<dynamic>>[];
+
+  @override
+  void initState() {
+    super.initState();
+    _streamSubscriptions.add(
+      magnetometerEvents.listen(
+            (MagnetometerEvent event) {
+              double D = 360 - atan2(event.x, event.y) * (180 / pi);
+              if (D > 337.25 || D < 22.5) {
+                compassDirection = CompassDirection.north;
+              } else if (D >= 292.5 && D <= 337.25) {
+                compassDirection = CompassDirection.northWest;
+              } else if (D >= 247.5 && D <= 292.5) {
+                compassDirection = CompassDirection.west;
+              } else if (D >= 202.5 && D <= 247.5) {
+                compassDirection = CompassDirection.southWest;
+              } else if (D >= 157.5 && D <= 202.5) {
+                compassDirection = CompassDirection.south;
+              } else if (D >= 112.5 && D <= 157.5) {
+                compassDirection = CompassDirection.southEast;
+              } else if (D >= 67.5 && D <= 112.5) {
+                compassDirection = CompassDirection.east;
+              } else if (D >= 0 && D <= 67.5) {
+                compassDirection = CompassDirection.northEast;
+              }
+              setState(() {
+            _magnetometerValues = <double>[event.x, event.y, event.z];
+          });
+        },
+        onError: (e) {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return const AlertDialog(
+                  title: Text("Sensor Not Found"),
+                  content: Text(
+                      "It seems that your device doesn't support Magnetometer Sensor"),
+                );
+              });
+        },
+        cancelOnError: true,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    for (final subscription in _streamSubscriptions) {
+      subscription.cancel();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    _magnetometerValues?.map((double v) => v.toStringAsFixed(1)).toList();
     return Scaffold(body: BlocBuilder<PlaceCubit, PlaceState>(
       builder: (context, state) {
         if (state is LoadedState) {
@@ -32,7 +91,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           return Container(
             width: double.maxFinite,
             height: double.maxFinite,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("img/background.png"),
                 fit: BoxFit.cover,
@@ -63,6 +122,26 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                   const SizedBox(
                     height: 5,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 20),
+                    child: Row(
+                      children: [
+                        Row(
+                          children: [
+                            const Text("Fun fact! Your direction is "),
+                            Text(compassDirection.name.toUpperCase(),
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w600
+                              ),),
+                          ],
+                        ),
+                        CompassIcon(
+                          const Icon(Typicons.compass, size:40, color: Colors.green,),
+                          compassDirection: compassDirection,
+                          initialDirection: compassDirection,
+                        ),
+                    ],),
                   ),
                   Container(
                     padding: const EdgeInsets.only(left: 15),
